@@ -1,0 +1,8 @@
+name: UvicAnon
+channels:
+  - conda-forge
+dependencies:
+  - flask=2.2.2
+  - flask-sqlalchemy=3.0.2
+  - python=3.11.0
+  - sqlalchemy=1.4.46
