@@ -8,7 +8,7 @@ class User(db.Model):
     verified = db.Column(db.Boolean, default=False)
     posts = db.relationship('Post', backref='user', lazy=True) # 1 to many relationship
     comments = db.relationship('Comment', backref='user', lazy=True) # 1 to many relationship
-    votes = db.relationship('Comment', backref='user', lazy=True)
+    votes = db.relationship('Vote', backref='user', lazy=True)
 
     def __repr__(self):
         return 'User {}'.format(self.email)
@@ -17,23 +17,17 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     timestamp = db.Column(db.DateTime(timezone=True), unique=False, default=func.now())
-    # date = db.Column(db.DateTime, unique=False, nullable=False)
-    expired = db.Column(db.Boolean, nullable=False)
-    upvotes = db.Column(db.Integer, nullable=False, default=0)
-    downvotes = db.Column(db.Integer, nullable=False, default=0)
-    content = db.Column(db.String(120), nullable=False)
+    expired = db.Column(db.Boolean, nullable=False, default=False)
+    content = db.Column(db.String, nullable=False)
     comments = db.relationship('Comment', backref='post', lazy=True) # 1 to many relationship
-    votes = db.relationship('Comment', backref='post', lazy=True)
+    votes = db.relationship('Vote', backref='post', lazy=True)
     
     def __repr__(self):
         return 'Post ID {}'.format(self.id)
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # date = db.Column(db.DateTime, unique=False, nullable=False)
-    # upvotes = db.Column(db.Integer, nullable=False)
-    # downvotes = db.Column(db.Integer, nullable=False)
-    content = db.Column(db.String(120), nullable=False)
+    content = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 

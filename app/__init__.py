@@ -17,8 +17,4 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    # with app.app_context():
-    #     db.session.add(Node(name=line[0], id=line[1]))
-    #     db.session.commit()
-
     return app
