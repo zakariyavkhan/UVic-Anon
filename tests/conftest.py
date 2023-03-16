@@ -1,5 +1,4 @@
 import pytest
 
-import app
-from app import create_app, db
+from app import app
 from app.models import User
