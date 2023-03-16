@@ -35,6 +35,7 @@ class Comment(db.Model):
         return 'Comment ID {}'.format(self.id)
     
 class Vote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     vote_type = db.Column(db.Boolean, nullable=False) # True = upvote, False = downvote
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
