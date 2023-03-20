@@ -1,3 +1,5 @@
+from app.models import User
+
 def test_user_creation():
     '''
     GIVEN a User model
