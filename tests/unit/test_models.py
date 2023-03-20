@@ -1,4 +1,4 @@
-from app.models import User
+from app.models import User, Post
 
 def test_user_creation():
     '''

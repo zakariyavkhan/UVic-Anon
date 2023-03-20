@@ -1,3 +1,5 @@
+from app.models import Comment, Vote
+
 def test_post_interaction():
     comment = Comment(content='user 1 comment content', user_id=1, post_id=1)
     vote = Vote(vote_type=True, user_id=1, post_id=1)
