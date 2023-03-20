@@ -2,6 +2,7 @@ import smtplib
 import random
 import string
 
+# TC-1
 def test_verify_email():
     '''
     GIVEN a user is prompted to verify their email

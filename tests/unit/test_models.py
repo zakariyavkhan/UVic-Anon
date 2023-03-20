@@ -1,5 +1,6 @@
 from app.models import User, Post
 
+# TC-2
 def test_user_creation():
     '''
     GIVEN a User model
@@ -10,6 +11,7 @@ def test_user_creation():
     assert new_user.email == "test-email@gmail.com"
     assert new_user.password == "abc123"
 
+# TC-3
 def test_post_creation():
     '''
     GIVEN a Post model
