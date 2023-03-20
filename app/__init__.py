@@ -13,8 +13,4 @@ def create_app():
             'sqlite:///' + os.path.join(basedir, 'database.db')    
     db.init_app(app)
 
-    from .models import User, Post, Comment
-    with app.app_context():
-        db.create_all()
-
     return app
