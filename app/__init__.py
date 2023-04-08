@@ -13,4 +13,7 @@ def create_app():
             'sqlite:///' + os.path.join(basedir, 'database.db')    
     db.init_app(app)
 
+    from .views import home
+    app.register_blueprint(home)
+
     return app
