@@ -12,8 +12,6 @@ def step_impl(context):
 
 @then(u'The user is routed to the verification page')
 def step_impl(context):
-    # each user needs to be routed to a verification page associated with their user
-    # add dynamic route here !!!
     assert context.browser.current_url == 'http://127.0.0.1:5000/verification' 
 
 @given(u'A new user wants to register for UvicAnon with invalid username')

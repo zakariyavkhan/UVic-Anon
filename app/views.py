@@ -27,7 +27,6 @@ def register_page():
         return redirect(url_for('home.verify_page'))
     return render_template('register.html', form=form)
 
-# need dynamic routes for verification
 @home.route('/verify', methods=['GET', 'POST'])
 def verify_page():
     return render_template('verify.html')
