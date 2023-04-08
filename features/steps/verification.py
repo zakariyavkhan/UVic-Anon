@@ -1,25 +1,28 @@
 from behave import *
 
-@given(u'A new user registers for UvicAnon with valid username')
+@given(u'A new user wants to register for UvicAnon with valid username')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given A new user registers for UvicAnon with valid username')
-
+    context.browser.get('http://127.0.0.1:5000/register')
+    context.browser.find_element_by_name('username').send_keys('valid@uvic.ca')
+    context.browser.find_element_by_name('password').send_keys('password')
 
 @when(u'The user submits registration form')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The user submits registration form')
+    context.browser.find_element_by_xpath(f"//input[@type='submit' and @value='Submit']").click()
 
-
-@then(u'A verification email is sent to the netlinkid')
+@then(u'The user is routed to the verification page')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then A verification email is sent to the netlinkid')
+    # each user needs to be routed to a verification page associated with their user
+    # add dynamic route here !!!
+    assert context.browser.current_url == 'http://127.0.0.1:5000/verification' 
 
-
-@given(u'A new user registers for UvicAnon with invalid username')
+@given(u'A new user wants to register for UvicAnon with invalid username')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given A new user registers for UvicAnon with invalid username')
-
+    context.browser.get('http://127.0.0.1:5000/register')
+    context.browser.find_element_by_name('username').send_keys('invalid@email.com')
+    context.browser.find_element_by_name('password').send_keys('password')
 
 @then(u'The username fails form validation')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The username fails form validation')
+    assert context.browser.current_url == 'http://127.0.0.1:5000/register'
+    assert 'Invalid username!' in context.browser.page_source
