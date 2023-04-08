@@ -2,7 +2,7 @@
 
 https://github.com/conda-forge/miniforge#mambaforge
 
-conda install -n UvicAnon requirements.txt
+conda create --name UvicAnon --file requirements.txt
 
 conda activate UvicAnon
 
