@@ -27,7 +27,7 @@ def register_page():
                               password=form.password1.data)
         db.session.add(user_to_create)
         db.session.commit()
-        return redirect(url_for('verify_page'))
+        return redirect(url_for('home.verify_page'))
     
     if request.method == 'POST' and form.errors != {}:
         for err_msg in form.errors.values():
