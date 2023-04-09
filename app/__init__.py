@@ -7,7 +7,7 @@ db = SQLAlchemy()
 def create_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
 
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="templates/static")
     app.config['SECRET_KEY']='dev'
     app.config['SQLALCHEMY_DATABASE_URI'] = \
             'sqlite:///' + os.path.join(basedir, 'database.db')    

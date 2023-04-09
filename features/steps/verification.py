@@ -23,4 +23,4 @@ def step_impl(context):
 @then(u'The username fails form validation')
 def step_impl(context):
     assert context.browser.current_url == 'http://127.0.0.1:5000/register'
-    assert 'Invalid username!' in context.browser.page_source
+    assert 'Not a valid NetlinkID! Please try again' in context.browser.page_source
