@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from app import create_app
 app = create_app()
 
-CHROME_DRIVER = os.path.join(os.path.join(os.path.dirname(__file__), 'driver'), 'chromedriver')
+# CHROME_DRIVER = os.path.join(os.path.join(os.path.dirname(__file__), 'driver'), 'chromedriver')
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -22,7 +22,7 @@ def before_all(context):
     context.pa_app = threading.Thread(target=context.server.serve_forever)
     context.pa_app.start()
 
-    context.browser = webdriver.Chrome(options=chrome_options, executable_path=CHROME_DRIVER)
+    context.browser = webdriver.Chrome(options=chrome_options)
     context.browser.set_page_load_timeout(time_to_wait=200)
 
 def after_all(context):
