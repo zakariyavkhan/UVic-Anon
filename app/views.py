@@ -2,10 +2,13 @@ from . import db
 from flask import render_template, Blueprint, request, redirect, url_for, flash
 from .forms import LoginForm, RegisterForm
 from .models import User
+from sqlalchemy.sql import select
+from flask_login import login_user, login_required
 
 home = Blueprint('home', __name__)
 
 @home.route('/', methods=['GET', 'POST'])
+@login_required
 def home_page():
     # posts = query all posts with (now() - timestamp) < 24 hrs
     # pass as parameter to home.html
@@ -14,9 +17,20 @@ def home_page():
 @home.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        # handle login logic here
-        return redirect(url_for('home_page'))
+    if request.method == 'POST' and form.validate_on_submit():
+        attempted_user = db.session.scalars(select(User).where(User.username == form.username.data)).first()
+        if attempted_user and attempted_user.check_password(attempted_password=form.password.data):
+            login_user(attempted_user)
+            flash(f'Success! You are now logged in', category='success')
+            return redirect(url_for('home.home_page'))
+        
+        else:
+            flash('There was an error logging in', category='danger')
+    
+    # if request.method == 'POST' and form.errors != {}:
+    #     for err_msg in form.errors.values():
+    #         flash(f'There was an error logging in: {err_msg}', category='danger')
+
     return render_template('login.html', form=form)
 
 @home.route('/register', methods=['GET', 'POST'])
@@ -41,5 +55,6 @@ def verify_page():
     return render_template('verify.html')
 
 @home.route('/post', methods=['GET', 'POST'])
+@login_required
 def post_page():
     return render_template('post.html')
