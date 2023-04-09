@@ -1,9 +1,32 @@
 {% extends 'base.html' %}
 
 {% block title %}
-
+Account Registration
 {% endblock %}
 
 {% block content %}
+<main>
+    <section class="text-center">
+        <h2>Create An Account</h2>
+        <form method="POST" class="form-signin">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group col-sm-6 mx-auto">
+                {{ form.username(class="form-control", placeholder="NetlinkID") }}                
+            </div>
+
+            <div class="form-group col-sm-6 mx-auto">
+                {{ form.password1(class='form-control', placeholder='Password')}}
+            </div>
+
+            <div class="form-group col-sm-6 mx-auto">
+                {{ form.password2(class='form-control', placeholder='Confirm Password')}}
+            </div>
+
+            {{ form.submit(class="btn btn-primary") }}
+
+        </form>
+    </section>
+</main>
 
 {% endblock %}

@@ -1,28 +1,45 @@
 from . import db
-from flask import render_template, Blueprint, request
-# from .forms import *
-# from .models import *
+from flask import render_template, Blueprint, request, redirect, url_for, flash
+from .forms import LoginForm, RegisterForm
+from .models import User
 
-# logged in and not logged in blueprints?
 home = Blueprint('home', __name__)
 
 @home.route('/', methods=['GET', 'POST'])
 def home_page():
-    # query all posts with (now() - timestamp) < 24 hrs
+    # posts = query all posts with (now() - timestamp) < 24 hrs
+    # pass as parameter to home.html
     return render_template('home.html')
 
-@home.route('/login/', methods=['GET', 'POST'])
-def login_page():
-    return render_template('login.html')
+@home.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # handle login logic here
+        return redirect(url_for('home_page'))
+    return render_template('login.html', form=form)
 
-@home.route('/register/', methods=['GET', 'POST'])
+@home.route('/register', methods=['GET', 'POST'])
 def register_page():
-    return render_template('register.html')
+    form = RegisterForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        user_to_create = User(username=form.username.data,
+                              password=form.password1.data)
+        db.session.add(user_to_create)
+        db.session.commit()
+        return redirect(url_for('home.verify_page'))
+    
+    if request.method == 'POST' and form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
-@home.route('/verify/', methods=['GET', 'POST'])
+    return render_template('register.html', form=form)
+
+@home.route('/verify', methods=['GET', 'POST'])
 def verify_page():
+    # login_user(user_to_create)
     return render_template('verify.html')
 
-@home.route('/post/', methods=['GET', 'POST'])
+@home.route('/post', methods=['GET', 'POST'])
 def post_page():
     return render_template('post.html')
