@@ -11,7 +11,6 @@ def step_impl(context):
 def step_impl(context):
     context.browser.find_element('xpath', f"//*[@id='submit']").click()
 
-
 @then(u'The user is routed to the verification page')
 def step_impl(context):
     assert context.browser.current_url == 'http://127.0.0.1:5000/verify' 

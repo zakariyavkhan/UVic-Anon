@@ -1,3 +1,4 @@
+@verify
 Feature: User Verification during Registration
 
     Scenario: Successful Registration
