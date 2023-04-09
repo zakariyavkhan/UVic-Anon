@@ -11,7 +11,11 @@ def create_app():
     app.config['SECRET_KEY']='dev'
     app.config['SQLALCHEMY_DATABASE_URI'] = \
             'sqlite:///' + os.path.join(basedir, 'database.db')    
-    db.init_app(app)
+    
+    from .models import User, Post, Comment, Vote
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
 
     from .views import home
     app.register_blueprint(home)

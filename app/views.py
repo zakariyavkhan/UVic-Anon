@@ -22,14 +22,14 @@ def login():
 @home.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         user_to_create = User(username=form.username.data,
                               password=form.password1.data)
         db.session.add(user_to_create)
         db.session.commit()
         return redirect(url_for('verify_page'))
     
-    if form.errors != {}:
+    if request.method == 'POST' and form.errors != {}:
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
