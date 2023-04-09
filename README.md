@@ -7,3 +7,7 @@ conda create --name UvicAnon --file requirements.txt
 conda activate UvicAnon
 
 python -m pytest -v
+
+behave
+
+flask run
