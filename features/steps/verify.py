@@ -13,7 +13,7 @@ def step_impl(context):
 
 @then(u'The user is routed to the verification page')
 def step_impl(context):
-    assert context.browser.current_url == 'http://127.0.0.1:5000/register'
+    assert context.browser.current_url == 'http://127.0.0.1:5000/verify'
 
 @given(u'A new user wants to register for UvicAnon with invalid username')
 def step_impl(context):
