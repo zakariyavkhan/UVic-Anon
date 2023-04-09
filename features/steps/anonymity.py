@@ -1,5 +1,4 @@
 from behave import given, when, then
-from flask_login import current_user
 
 @given(u'A user is logged in')
 def step_impl(context):
