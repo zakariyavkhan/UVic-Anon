@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):
-        user_to_check = db.session.scalars(select(User).where(User.username == username_to_check.data)).first()
+        user_to_check = db.session.scalars(select(User).where(User.username == username_to_check.data))
         if user_to_check:
             raise ValidationError('User already exists! Please try a different NetlinkID')
         if '@uvic.ca' not in username_to_check.data:
