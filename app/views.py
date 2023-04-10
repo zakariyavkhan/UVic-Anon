@@ -1,18 +1,16 @@
 from . import db
 from flask import render_template, Blueprint, request, redirect, url_for, flash
 from .forms import LoginForm, RegisterForm
-from .models import User
+from .models import User, Post
 from sqlalchemy.sql import select
-from flask_login import login_user, login_required
+from flask_login import login_user
 
 home = Blueprint('home', __name__)
 
 @home.route('/', methods=['GET', 'POST'])
-@login_required
 def home_page():
-    # posts = query all posts with (now() - timestamp) < 24 hrs
-    # pass as parameter to home.html
-    return render_template('home.html')
+    posts = db.session.scalars(select(Post).where(Post.expired == False)).all()
+    return render_template('home.html', posts=posts)
 
 @home.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,6 +53,5 @@ def verify_page():
     return render_template('verify.html')
 
 @home.route('/post', methods=['GET', 'POST'])
-@login_required
 def post_page():
     return render_template('post.html')

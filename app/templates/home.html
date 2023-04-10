@@ -12,38 +12,31 @@ Account Registration
 
 	<section>
 		<h2>Posts</h2>
-		<div class="col d-flex justify-content-center">
-			<div class="card" style="width: 30rem;">
+		<table class="table table-hover">
+			<thead>
+			   <tr>
+				  <!-- Your Columns HERE -->
+				  <th scope="col">ID</th>
+				  <th scope="col">Posted</th>
+				  <th scope="col">Content</th>
+			   </tr>
+			</thead>
+			<tbody>
+			   <!-- Your rows inside the table HERE: -->
+			
+			   {% for post in posts %}
+			   <!-- {% include 'includes/items_modals.html' %} -->
+				<tr>
+					<td>{{ post.id }}</td>
+					<td>{{ post.timestamp }}</td>
+					<td>{{ post.content }}</td>
+				</tr>
+			   {% endfor %}
 
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				</div>
-
-				<div class="card-footer" style="height: 5rem;">
-					<div class="col d-xl-flex">
-						<button class="btn btn-link">
-							<img src="{{ url_for('static',filename='upvote.png') }}" width="25"/>
-							<p class="card-upvote-count">100</p>
-						</button>
-
-						<button class="btn btn-link">
-							<img src="{{ url_for('static',filename='downvote.png') }}" width="25"/>
-							<p class="card-downvote-count">50</p>
-						</button>
-
-						<button class="btn btn-link">
-							<img src="{{ url_for('static',filename='comment.png') }}" width="25" height="25"/>
-							<p class="card-comment-count">15</p>
-						</button>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
+			</tbody>
+		 </table>
 	</section>
+
 </main>
 
 {% endblock %}
